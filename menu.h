@@ -2,5 +2,4 @@
 #define MENU_H
 
 int exibirMenu(void);
-
 #endif
