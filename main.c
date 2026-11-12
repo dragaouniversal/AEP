@@ -5,6 +5,7 @@
 #include "aluno.h"
 #include "acompanhamento.h"
 #include "desempenho.h"
+#include "agenda.h"
 
 int main() {
     int opcao;
