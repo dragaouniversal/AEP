@@ -15,6 +15,8 @@ int main() {
     Acompanhamento acompanhamentos[500];
     int quantidadeDesempenho = 0;
     Desempenho desempenhos[500];
+    int quantidadeAgenda = 0;
+    Agenda compromissos[500];
 
     do {
         opcao = exibirMenu();
@@ -141,11 +143,59 @@ int main() {
                         avaliarDesempenho( alunos, quantidadeAluno, desempenhos, quantidadeDesempenho);
                         break;
                 }
-                } while(opcaoDesempenhos != 0);
+                } while(getchar(), opcaoDesempenhos != 0);
                 break;
 
             case 6:
-                printf("\nAgenda de reuniões em desenvolvimento!\n");
+                int opcaoAgenda;
+                do{
+                    printf("\n================================\n");
+                    printf("AGENDA\n");
+                    printf("================================\n");
+                    printf("1 - Registrar compromisso\n");
+                    printf("2 - Consultar compromissos\n");
+                    printf("3 - Pesquisar por compromissos\n");
+                    printf("4 - Cancelar compromisso\n");
+                    printf("0 - Voltar\n");
+                    printf("Escolha uma opcao: ");
+
+
+                    if (scanf("%d", &opcaoAgenda) != 1){
+                        while(getchar() != '\n');
+                        opcaoAgenda = -1;
+                        continue;
+                    }
+
+                    while(getchar() != '\n');
+
+                    switch (opcaoAgenda){
+                        case 1:
+                            quantidadeAgenda = registrarCompromisso(compromissos, quantidadeAgenda);
+                            break;
+                        case 2:
+                            consultarCompromissos(compromissos, quantidadeAgenda);
+                            break;
+                        case 0:
+                            printf("\nVoltando ao menu principal.\n");
+                            printf("\nPrecione ENTER para voltar.");
+                            break;
+                        case 3:
+                            pesquisarCompromissosPorDia(compromissos, quantidadeAgenda);
+                            break;
+                        case 4:
+                            cancelarCompromisso(compromissos, quantidadeAgenda);
+                            break;
+                        case -1:
+                            printf("\nDigite um numero inteiro.\n");
+                            printf("\nAperte ENTER para inserir novamente.\n");
+                            break;
+                        default:
+                            printf("\nOpcao invalida.\n");
+                            printf("\nAperte ENTER para inserir novamente.\n");                            
+                            break;
+                    }
+                
+                } while(getchar(), opcaoAgenda != 0);
                 break;
 
             case 0:

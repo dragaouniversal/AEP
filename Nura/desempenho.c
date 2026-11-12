@@ -14,11 +14,13 @@ int registrarDesempenho(
 
     if (quantidadeAluno == 0) {
         printf("\nNenhum aluno cadastrado.\n");
+        printf("\nPrecione ENTER para voltar.");
         return quantidadeDesempenhos;
     }
 
     else if (quantidadeDesempenhos >= 500) {
         printf("\nLimite de registros atingido.\n");
+        printf("\nPrecione ENTER para voltar.");
         return quantidadeDesempenhos;
     }
 
@@ -27,6 +29,7 @@ int registrarDesempenho(
     if (scanf("%d", &id) != 1) {
         while (getchar() != '\n');
         printf("\nEntrada invalida!\n");
+        printf("\nPrecione ENTER para voltar.");
         return quantidadeDesempenhos;
     }
 
@@ -38,6 +41,7 @@ int registrarDesempenho(
 
             if (alunos[i].ativo == 0) { // Verifica se o ID está ativo
                 printf("\nEste aluno esta inativo.\n");
+                printf("\nPrecione ENTER para voltar.");
                 return quantidadeDesempenhos;
             }
 
@@ -48,6 +52,7 @@ int registrarDesempenho(
 
     if (encontrado == 0) {
         printf("\nAluno nao encontrado.\n");
+        printf("\nPrecione ENTER para voltar.");
         return quantidadeDesempenhos;
     }
 
@@ -67,6 +72,7 @@ int registrarDesempenho(
     if (scanf("%f", &desempenhos[quantidadeDesempenhos].nota) != 1) {
         while (getchar() != '\n');
         printf("\nNota invalida!\n");
+        printf("\nPrecione ENTER para voltar.");
         return quantidadeDesempenhos;
     }
 
@@ -82,6 +88,7 @@ int registrarDesempenho(
     if (scanf("%f", &desempenhos[quantidadeDesempenhos].frequencia) != 1) {
         while (getchar() != '\n');
         printf("\nFrequencia invalida!\n");
+        printf("\nPrecione ENTER para voltar.");
         return quantidadeDesempenhos;
     }
 
@@ -89,6 +96,7 @@ int registrarDesempenho(
         desempenhos[quantidadeDesempenhos].frequencia > 100) {
         while (getchar() != '\n');
         printf("\nA frequencia deve estar entre 0 e 100.\n");
+        printf("\nPrecione ENTER para voltar.");
         return quantidadeDesempenhos;
     }
 
@@ -97,6 +105,7 @@ int registrarDesempenho(
     quantidadeDesempenhos++;
 
     printf("\nDesempenho registrado com sucesso!\n");
+    printf("\nPrecione ENTER para voltar.");
 
     return quantidadeDesempenhos;
 }
@@ -108,6 +117,7 @@ void consultarDesempenho(Aluno alunos[], int quantidadeAlunos, Desempenho desemp
 
     if (quantidadeAlunos == 0){
         printf("\nNenhum aluno cadastrado.\n");
+        printf("\nPrecione ENTER para voltar.");
         return;
     }
     printf("\nDigite o ID do aluno: ");
@@ -115,6 +125,7 @@ void consultarDesempenho(Aluno alunos[], int quantidadeAlunos, Desempenho desemp
     if (scanf("%d", &id) != 1) {
         while (getchar() != '\n');
         printf("\nEntrada invalida!\n");
+        printf("\nPrecione ENTER para voltar.");
         return;
     }
 
@@ -136,6 +147,7 @@ void consultarDesempenho(Aluno alunos[], int quantidadeAlunos, Desempenho desemp
 
     if (alunoEncontrado == 0) {
         printf("\nAluno nao encontrado.\n");
+        printf("\nPrecione ENTER para voltar.");
         return;
     }
 
@@ -154,6 +166,7 @@ void consultarDesempenho(Aluno alunos[], int quantidadeAlunos, Desempenho desemp
 
     if (desempenhoEncontrado == 0) {
         printf("\nEste aluno ainda nao possui acompanhamentos.\n");
+        printf("\nPrecione ENTER para voltar.");
     }
 }
 
@@ -170,6 +183,7 @@ void avaliarDesempenho(
 
     if (quantidadeAluno == 0) {
         printf("\nNenhum aluno cadastrado.\n");
+        printf("\nPrecione ENTER para voltar.");
         return; //Isso cancela a função, pois se o if for True, não tem nenhum aluno para ser avaliado.
     }
 
@@ -178,6 +192,7 @@ void avaliarDesempenho(
     if (scanf("%d", &id) != 1) {
         while (getchar() != '\n');
         printf("\nEntrada invalida!\n");
+        printf("\nPrecione ENTER para voltar.");
         return; //Isso cancela a função, pois se o if for True, não foi digitado um número.
     }
 
@@ -200,6 +215,7 @@ void avaliarDesempenho(
 
     if (alunoEncontrado == 0) {
         printf("\nAluno nao encontrado.\n");
+        printf("\nPrecione ENTER para voltar.");
         return; // Isso é caso o for não encontre nenhum aluno com o ID informado.
     }
 
@@ -296,6 +312,7 @@ void avaliarDesempenho(
 
         } else {
             printf("\nAinda nao existem registros suficientes para comparar.\n");
+            printf("\nPrecione ENTER para voltar.");
         }
 
         printf("--------------------------------\n");
@@ -303,5 +320,6 @@ void avaliarDesempenho(
 
     if (possuiDesempenho == 0) {
         printf("\nEste aluno ainda nao possui registros de desempenho.\n");
+        printf("\nPrecione ENTER para voltar.");
     }
 }

@@ -27,4 +27,14 @@ typedef struct {
     float frequencia;
 } Desempenho;
 
+typedef struct {
+    int id;
+    char dia[11];
+    char horario[6];
+    char tipo[50];
+    char descricao[200];
+    char participante[100];
+    int ativo;
+} Agenda;
+
 #endif
