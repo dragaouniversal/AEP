@@ -3,11 +3,17 @@
 #include "estruturas.h"
 #include <string.h>
 #include "aluno.h"
+#include "acompanhamento.h"
+#include "desempenho.h"
 
 int main() {
     int opcao;
     int quantidadeAluno = 0;
     Aluno alunos[100];
+    int quantidadeAcompanhamentos = 0;
+    Acompanhamento acompanhamentos[500];
+    int quantidadeDesempenho = 0;
+    Desempenho desempenhos[500];
 
     do {
         opcao = exibirMenu();
@@ -35,6 +41,10 @@ int main() {
                     case 2:
                         inativarAluno(alunos, quantidadeAluno);
                         break;
+                    
+                    case 3:
+                        pesquisarAluno(alunos, quantidadeAluno);
+                        break;
 
                     case 0:
                         printf("\nVoltando ao menu principal...\n");
@@ -52,12 +62,81 @@ int main() {
                 break;
             } //Usamos as chaves para delimitar o escopo do case 3, pois ele possui um switch interno e uma variável local (opcaoGerenciamento).
 
-            case 4:
-                printf("\nAcompanhamento pedagogico em desenvolvimento!\n");
-                break;
+            case 4:{
+                int opcaoAcompanhamento;
+                do {
+                    printf("\n===== ACOMPANHAMENTO PEDAGOGICO =====\n");
+                    printf("1 - Registrar acompanhamento\n");
+                    printf("2 - Consultar historico\n");
+                    printf("0 - Voltar ao menu principal\n");
+                    printf("Escolha uma opcao: ");
+                    if (scanf("%d", &opcaoAcompanhamento) != 1) {
+                        while (getchar() != '\n');
+                        printf("\nEntrada invalida!\n");
+                        continue;
+                    }
 
+                    switch (opcaoAcompanhamento){
+                        case 1:
+                            quantidadeAcompanhamentos = registrarAcompanhamento(
+                                alunos,
+                                quantidadeAluno,
+                                acompanhamentos,
+                                quantidadeAcompanhamentos);
+                            break;
+                        case 2:
+                            consultarAcompanhamentos(alunos,
+                                quantidadeAluno,
+                                acompanhamentos,
+                                quantidadeAcompanhamentos);
+                            break;
+                        case 0:
+                            printf("\nVoltando ao menu principal...\n");
+                            break;
+                        default:
+                            printf("\nOpcao invalida!\n");
+                    }
+                } while (opcaoAcompanhamento != 0);
+                break;
+            }
             case 5:
-                printf("\nRelatorios em desenvolvimento!\n");
+                int opcaoDesempenhos;
+                do{
+                    printf("\n===== DESEMPENHO ACADEMICO =====\n");
+                    printf("1 - Registrar desemepnho\n");
+                    printf("2 - Consultar desempenho\n");
+                    printf("3 - Analisar desempenho\n");
+                    printf("0 - Voltar\n");
+                    printf("Escolha uma opcao: ");
+
+                    if (scanf("%d", &opcaoDesempenhos) != 1){
+                        while(getchar() != '\n');
+                        printf("\nEntrada invalida.\n");
+                    }
+                while(getchar() != '\n');
+
+                switch (opcaoDesempenhos){
+                    case 1:
+                    quantidadeDesempenho = registrarDesempenho(
+                        alunos,
+                        quantidadeAluno,
+                        desempenhos,
+                        quantidadeDesempenho);
+                    break;
+
+                    case 2:
+                        consultarDesempenho(
+                        alunos,
+                        quantidadeAluno,
+                        desempenhos,
+                        quantidadeDesempenho);
+                    break;
+
+                    case 3:
+                        avaliarrDesempenho( alunos, quantidadeAluno, desempenhos, quantidadeDesempenho);
+                        break;
+                }
+                } while(opcaoDesempenhos != 0);
                 break;
 
             case 6:

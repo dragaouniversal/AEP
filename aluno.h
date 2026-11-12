@@ -12,4 +12,6 @@ void inativarAluno(Aluno alunos[], int quantidadeAluno);
 
 void edicaoAlunos(Aluno alunos[], int quantidadeAluno);
 
+void pesquisarAluno(Aluno alunos[], int quantidadeAlunos);
+
 #endif

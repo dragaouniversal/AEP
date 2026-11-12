@@ -180,6 +180,72 @@ void edicaoAlunos(Aluno alunos[], int quantidadeAluno){
     }
 }
 
+void pesquisarAluno(Aluno alunos[], int quantidadeAlunos){
+    int criterio; // Essa veriável deixa a opção de escolha ao usuário. Deixando ele escolher a pesquisa ou por nome, ou por matricula.
+    int encontrado =0;
+    char pesquisa[100];
+
+    if (quantidadeAlunos == 0){
+        printf("\nNenhum aluno cadastrado.\n");
+        return;
+    }
+
+    printf("\n===== PESQUISAR ALUNO =====\n");
+    printf("1 - Pesquisar por nome\n");
+    printf("2 - Pesquisar por matricula\n");
+    printf("Escolha uma opcao: \n");
+
+    if (scanf("%d", &criterio) != 1){
+        while(getchar() != '\n');
+        printf("\nEntrada invalida\n");
+        return;
+    }
+    if (criterio != 1 && criterio != 2){
+        printf("\nOpcao inexistente\n");
+        return;
+    }
+
+    while(getchar() != '\n');
+
+    if (criterio == 1){
+        printf("\nDigite o nome ou parte do nome: ");
+    } else {
+        printf("\nDigite a matricula: ");
+    }
+
+    fgets(pesquisa, 100, stdin);
+    pesquisa[strcspn(pesquisa, "\n")] = '\0';
+
+    for (int i = 0; i < quantidadeAlunos; i++){
+        if (criterio == 1 && strstr(alunos[i].nome, pesquisa) != NULL){ // A função "strstr" procura um texto dentro de outro.
+            // Imagine que temo:
+            // alunos[i].nome = "Pedro Henrique";
+            // pesquisa = "Pedro";
+            // A função encontra "Pedro" dentro de "Pedro Henrique"
+            encontrado = 1;
+        } else if (criterio == 2 && strcmp(alunos[i].matricula, pesquisa) == 0){ // A função "strcmp" compara dois textos.
+            // Diferente da pesqusia de nomes, a pesquisa por matricula precisa ser exata, comparando o valor digitado com o valor armazenado.
+            // Caso esteja errado, não irá encontrar nada.
+            encontrado = 1;
+        } else{
+            continue; // Continue apenas pula para a próxima repetição.
+        }
+        printf("\nID: %d | Nome: %s | Matricula: %s\n", alunos[i].id, alunos[i].nome, alunos[i].matricula);
+        printf("\nTurma: %s | Serie %s\n", alunos[i].turma, alunos[i].serie);
+
+        if (alunos[i].ativo == 1){
+            printf("Status: Ativo\n");
+        } else {
+            printf("Status: Inativo\n");
+        }
+
+        printf("------------------------------------\n");
+    }
+    if (encontrado == 0){
+        printf("\nNenhum aluno encontrado.\n");
+    }
+}
+
 int menuGerenciamento(void) {
     int opcao;
 
@@ -189,6 +255,7 @@ int menuGerenciamento(void) {
 
     printf("\n1 - Editar aluno\n");
     printf("2 - Inativar aluno\n");
+    printf("3 - Pesquisar aluno\n");
     printf("0 - Voltar ao menu principal\n");
 
     printf("\nEscolha uma opcao: ");

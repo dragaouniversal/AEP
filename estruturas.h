@@ -11,4 +11,20 @@ typedef struct {
     int ativo;
 } Aluno;
 
+typedef struct{
+    int idAluno;
+    char data[11];
+    char dificuldade[200];
+    char estrategia[200];
+    char observacao[200];
+} Acompanhamento;
+
+typedef struct {
+    int idAluno;
+    char disciplina[50];
+    char periodo[30];
+    float nota;
+    float frequencia;
+} Desempenho;
+
 #endif
