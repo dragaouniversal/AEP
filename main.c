@@ -24,7 +24,11 @@ int main() {
                 break;
 
             case 2:
-                consultarAlunos(alunos, quantidadeAluno);
+                int fecha;
+                getchar();
+                    do{consultarAlunos(alunos, quantidadeAluno);  
+                    }
+                    while(getchar() != '\n');
                 break;
 
             case 3: {
@@ -133,7 +137,7 @@ int main() {
                     break;
 
                     case 3:
-                        avaliarrDesempenho( alunos, quantidadeAluno, desempenhos, quantidadeDesempenho);
+                        avaliarDesempenho( alunos, quantidadeAluno, desempenhos, quantidadeDesempenho);
                         break;
                 }
                 } while(opcaoDesempenhos != 0);

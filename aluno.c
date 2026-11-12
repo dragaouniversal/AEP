@@ -80,6 +80,7 @@ void consultarAlunos(Aluno alunos[], int quantidadeAluno){
     if(alunosAtivos ==0){
         printf("\nNenhum aluno ativo encontrado.");
     }
+    printf("\nAperte ENTER para sair.");
 }
 
 void inativarAluno(Aluno alunos[], int quantidadeAluno){ //void: significa que a função não precisa devolver nenhum valor.
