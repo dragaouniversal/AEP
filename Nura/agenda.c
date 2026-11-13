@@ -20,19 +20,27 @@ int registrarCompromisso(Agenda compromissos[], int quantidadeAgenda) {
     fgets(compromissos[quantidadeAgenda].dia, 11, stdin);
     compromissos[quantidadeAgenda].dia[strcspn(compromissos[quantidadeAgenda].dia, "\n")] = '\0';
 
-    printf("Digite o horario (HH:MM): ");
+    while(getchar() != '\n');
+
+    printf("\nDigite o horario (HH:MM): ");
     fgets(compromissos[quantidadeAgenda].horario, 6, stdin);
     compromissos[quantidadeAgenda].horario[strcspn(compromissos[quantidadeAgenda].horario, "\n")] = '\0';
 
-    printf("Tipo de compromisso: ");
+    while(getchar() != '\n');
+
+    printf("\nTipo de compromisso: ");
     fgets(compromissos[quantidadeAgenda].tipo, 50, stdin);
     compromissos[quantidadeAgenda].tipo[strcspn(compromissos[quantidadeAgenda].tipo, "\n")] = '\0';
 
-    printf("Descricao: ");
+   
+
+    printf("\nDescricao: ");
     fgets(compromissos[quantidadeAgenda].descricao, 200, stdin);
     compromissos[quantidadeAgenda].descricao[strcspn(compromissos[quantidadeAgenda].descricao, "\n")] = '\0';
 
-    printf("Participante: ");
+  
+
+    printf("\nParticipante: ");
     fgets(compromissos[quantidadeAgenda].participante, 100, stdin);
     compromissos[quantidadeAgenda].participante[strcspn(compromissos[quantidadeAgenda].participante, "\n")] = '\0';
 
@@ -41,6 +49,7 @@ int registrarCompromisso(Agenda compromissos[], int quantidadeAgenda) {
     quantidadeAgenda++;
 
     printf("\nCompromisso registrado com sucesso!\n");
+    printf("Precione ENTER para retornar.\n");
 
     return quantidadeAgenda;
 }
@@ -182,4 +191,64 @@ void cancelarCompromisso(Agenda compromissos[], int quantidadeAgenda) {
         printf("\nCompromisso nao encontrado.\n");
         printf("\nPrecione ENTER para voltar.");
     }
+}
+
+void salvarCompromissos(
+    Agenda compromissos[],
+    int quantidadeAgenda
+) {
+    FILE *arquivo = fopen("agenda.txt", "w");
+
+    if (arquivo == NULL) {
+        printf("\nErro ao abrir o arquivo da agenda.\n");
+        return;
+    }
+
+    for (int i = 0; i < quantidadeAgenda; i++) {
+
+        fprintf(arquivo, "%d|%s|%s|%s|%s|%s|%d\n",
+            compromissos[i].id,
+            compromissos[i].dia,
+            compromissos[i].horario,
+            compromissos[i].tipo,
+            compromissos[i].descricao,
+            compromissos[i].participante,
+            compromissos[i].ativo
+        );
+    }
+
+    fclose(arquivo);
+
+    printf("\nCompromissos salvos com sucesso!\n");
+}
+
+int carregarCompromissos(
+    Agenda compromissos[],
+    int limite
+) {
+    FILE *arquivo = fopen("agenda.txt", "r");
+
+    if (arquivo == NULL) {
+        return 0;
+    }
+
+    int quantidadeAgenda = 0;
+
+    while (quantidadeAgenda < limite &&
+        fscanf(arquivo, "%d|%11[^|]|%6[^|]|%49[^|]|%199[^|]|%99[^|]|%d",
+            &compromissos[quantidadeAgenda].id,
+            compromissos[quantidadeAgenda].dia,
+            compromissos[quantidadeAgenda].horario,
+            compromissos[quantidadeAgenda].tipo,
+            compromissos[quantidadeAgenda].descricao,
+            compromissos[quantidadeAgenda].participante,
+            &compromissos[quantidadeAgenda].ativo
+        ) == 7) {
+
+        quantidadeAgenda++;
+    }
+
+    fclose(arquivo);
+
+    return quantidadeAgenda;
 }

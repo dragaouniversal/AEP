@@ -157,10 +157,11 @@ void consultarDesempenho(Aluno alunos[], int quantidadeAlunos, Desempenho desemp
 
             printf("\nDisciplina: %s\n", desempenhos[i].disciplina);
             printf("Periodo: %s\n", desempenhos[i].periodo);
-            printf("Nota: %s\n", desempenhos[i].nota);
-            printf("Frequencia: %s\n", desempenhos[i].frequencia);
+            printf("Nota: %f\n", desempenhos[i].nota);
+            printf("Frequencia: %f\n", desempenhos[i].frequencia);
 
             printf("--------------------------------\n");
+            printf("Precione ENTER para sair.\n");
         }
     }
 
@@ -322,4 +323,55 @@ void avaliarDesempenho(
         printf("\nEste aluno ainda nao possui registros de desempenho.\n");
         printf("\nPrecione ENTER para voltar.");
     }
+}
+
+void salvarDesempenhos(Desempenho desempenhos[], int quantidadeDesempenhos){
+    FILE *arquivo = fopen("desempenhos.txt", "w");
+
+    if (arquivo == NULL) {
+        printf("\nErro ao abrir o arquivo de desempenhos.\n");
+        return;
+    }
+
+    for (int i = 0; i < quantidadeDesempenhos; i++) {
+
+        fprintf(arquivo, "%d|%s|%s|%.2f|%.2f\n",
+            desempenhos[i].idAluno,
+            desempenhos[i].disciplina,
+            desempenhos[i].periodo,
+            desempenhos[i].nota,
+            desempenhos[i].frequencia
+        );
+    }
+
+    fclose(arquivo);
+
+    printf("\nDesempenhos salvos com sucesso!\n");
+}
+
+int carregarDesempenhos(Desempenho desempenhos[], int limite){
+    
+    FILE *arquivo = fopen("desempenhos.txt", "r");
+
+    if (arquivo == NULL) {
+        return 0;
+    }
+
+    int quantidadeDesempenhos = 0;
+
+    while (quantidadeDesempenhos < limite &&
+        fscanf(arquivo, "%d|%49[^|]|%29[^|]|%f|%f",
+            &desempenhos[quantidadeDesempenhos].idAluno,
+            desempenhos[quantidadeDesempenhos].disciplina,
+            desempenhos[quantidadeDesempenhos].periodo,
+            &desempenhos[quantidadeDesempenhos].nota,
+            &desempenhos[quantidadeDesempenhos].frequencia
+        ) == 5) {
+
+        quantidadeDesempenhos++;
+    }
+
+    fclose(arquivo);
+
+    return quantidadeDesempenhos;
 }

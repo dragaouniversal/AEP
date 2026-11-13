@@ -9,14 +9,14 @@
 
 int main() {
     int opcao;
-    int quantidadeAluno = 0;
     Aluno alunos[100];
-    int quantidadeAcompanhamentos = 0;
+    int quantidadeAluno = carregarAlunos(alunos, 100);
     Acompanhamento acompanhamentos[500];
-    int quantidadeDesempenho = 0;
+    int quantidadeAcompanhamentos = carregarAcompanhamentos(acompanhamentos, 500);
     Desempenho desempenhos[500];
-    int quantidadeAgenda = 0;
+    int quantidadeDesempenho = carregarDesempenhos(desempenhos, 500);
     Agenda compromissos[500];
+    int quantidadeAgenda = carregarCompromissos(compromissos, 500);
 
     do {
         opcao = exibirMenu();
@@ -24,8 +24,8 @@ int main() {
         switch (opcao) {
             case 1:
                 quantidadeAluno = cadastrarAluno(alunos, quantidadeAluno);
+                salvarAlunos(alunos, quantidadeAluno);
                 break;
-
             case 2:
                 int fecha;
                 getchar();
@@ -43,10 +43,12 @@ int main() {
 
                     case 1:
                         edicaoAlunos(alunos, quantidadeAluno);
+                        salvarAlunos(alunos, quantidadeAluno);
                         break;
 
                     case 2:
                         inativarAluno(alunos, quantidadeAluno);
+                        salvarAlunos(alunos, quantidadeAluno);
                         break;
                     
                     case 3:
@@ -83,19 +85,17 @@ int main() {
                         continue;
                     }
 
+                    getchar();
+
                     switch (opcaoAcompanhamento){
                         case 1:
-                            quantidadeAcompanhamentos = registrarAcompanhamento(
-                                alunos,
-                                quantidadeAluno,
-                                acompanhamentos,
-                                quantidadeAcompanhamentos);
-                            break;
+                            quantidadeAcompanhamentos = registrarAcompanhamento(alunos,quantidadeAluno,acompanhamentos, quantidadeAcompanhamentos);
+
+                            salvarAcompanhamentos( acompanhamentos,quantidadeAcompanhamentos);
+
+                             break;
                         case 2:
-                            consultarAcompanhamentos(alunos,
-                                quantidadeAluno,
-                                acompanhamentos,
-                                quantidadeAcompanhamentos);
+                            consultarAcompanhamentos(alunos, quantidadeAluno, acompanhamentos,quantidadeAcompanhamentos);
                             break;
                         case 0:
                             printf("\nVoltando ao menu principal...\n");
@@ -114,29 +114,23 @@ int main() {
                     printf("2 - Consultar desempenho\n");
                     printf("3 - Analisar desempenho\n");
                     printf("0 - Voltar\n");
-                    printf("Escolha uma opcao: ");
+                    printf("Escolha uma opcao: \n");
 
                     if (scanf("%d", &opcaoDesempenhos) != 1){
                         while(getchar() != '\n');
                         printf("\nEntrada invalida.\n");
                     }
-                while(getchar() != '\n');
 
                 switch (opcaoDesempenhos){
                     case 1:
-                    quantidadeDesempenho = registrarDesempenho(
-                        alunos,
-                        quantidadeAluno,
-                        desempenhos,
-                        quantidadeDesempenho);
-                    break;
+                        quantidadeDesempenho = registrarDesempenho(alunos,quantidadeAluno,desempenhos,quantidadeDesempenho);
+
+                        salvarDesempenhos(desempenhos, quantidadeDesempenho);
+
+                        break;
 
                     case 2:
-                        consultarDesempenho(
-                        alunos,
-                        quantidadeAluno,
-                        desempenhos,
-                        quantidadeDesempenho);
+                        consultarDesempenho(alunos, quantidadeAluno,desempenhos,quantidadeDesempenho);
                     break;
 
                     case 3:
@@ -171,6 +165,9 @@ int main() {
                     switch (opcaoAgenda){
                         case 1:
                             quantidadeAgenda = registrarCompromisso(compromissos, quantidadeAgenda);
+
+                            salvarCompromissos(compromissos, quantidadeAgenda);
+
                             break;
                         case 2:
                             consultarCompromissos(compromissos, quantidadeAgenda);
@@ -184,6 +181,9 @@ int main() {
                             break;
                         case 4:
                             cancelarCompromisso(compromissos, quantidadeAgenda);
+
+                            salvarCompromissos(compromissos, quantidadeAgenda);
+
                             break;
                         case -1:
                             printf("\nDigite um numero inteiro.\n");

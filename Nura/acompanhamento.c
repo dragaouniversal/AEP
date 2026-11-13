@@ -17,7 +17,6 @@ int registrarAcompanhamento(Aluno alunos[], int quantidadeAlunos, Acompanhamento
         return quantidadeAcompanhamentos; // Retorna a quantidade atual de acompanhamentos, pois não é possível registrar mais acompanhamentos.
     }
 
-    while(getchar() != '\n'); // Limpa o buffer do teclado
 
     printf("Digite o ID do aluno: ");
     scanf("%d", &id);
@@ -44,15 +43,17 @@ int registrarAcompanhamento(Aluno alunos[], int quantidadeAlunos, Acompanhamento
     fgets(acompanhamentos[quantidadeAcompanhamentos].data, 11, stdin);
     acompanhamentos[quantidadeAcompanhamentos].data[strcspn(acompanhamentos[quantidadeAcompanhamentos].data, "\n")] = '\0';
 
-    printf("Descreva a dificuldade identificada: ");
-    fgets(acompanhamentos[quantidadeAcompanhamentos].dificuldade, 200, stdin);
-    acompanhamentos[quantidadeAcompanhamentos].dificuldade[strcspn(acompanhamentos[quantidadeAcompanhamentos].dificuldade, "\n")] = '\0';
+    getchar();
 
-    printf("Descreva a estrategia de apoio: ");
+    printf("\nDescreva a dificuldade identificada: ");
+    fgets(acompanhamentos[quantidadeAcompanhamentos].dificuldades, 200, stdin);
+    acompanhamentos[quantidadeAcompanhamentos].dificuldades[strcspn(acompanhamentos[quantidadeAcompanhamentos].dificuldades, "\n")] = '\0';
+
+    printf("\nDescreva a estrategia de apoio: ");
     fgets(acompanhamentos[quantidadeAcompanhamentos].estrategia, 200, stdin);
     acompanhamentos[quantidadeAcompanhamentos].estrategia[strcspn(acompanhamentos[quantidadeAcompanhamentos].estrategia, "\n")] = '\0';
 
-    printf("Adicione uma observacao: ");
+    printf("\nAdicione uma observacao: ");
     fgets(acompanhamentos[quantidadeAcompanhamentos].observacao, 300, stdin);
     acompanhamentos[quantidadeAcompanhamentos].observacao[strcspn(acompanhamentos[quantidadeAcompanhamentos].observacao, "\n")] = '\0';
 
@@ -110,7 +111,7 @@ void consultarAcompanhamentos(
             acompanhamentoEncontrado = 1;
 
             printf("\nData: %s\n", acompanhamentos[i].data);
-            printf("Dificuldade: %s\n", acompanhamentos[i].dificuldade);
+            printf("Dificuldade: %s\n", acompanhamentos[i].dificuldades);
             printf("Estrategia: %s\n", acompanhamentos[i].estrategia);
             printf("Observacao: %s\n", acompanhamentos[i].observacao);
 
@@ -122,4 +123,54 @@ void consultarAcompanhamentos(
         printf("\nEste aluno ainda nao possui acompanhamentos.\n");
     }
 
+}
+
+void salvarAcompanhamentos(Acompanhamento acompanhamentos[], int quantidadeAcompanhamentos){
+    FILE *arquivo = fopen("acompanhamentos.txt", "w");
+
+    if (arquivo == NULL) {
+        printf("\nErro ao abrir o arquivo de acompanhamentos.\n");
+        return;
+    }
+
+    for (int i = 0; i < quantidadeAcompanhamentos; i++) {
+
+        fprintf(arquivo, "%d|%s|%s|%s|%s\n",
+            acompanhamentos[i].idAluno,
+            acompanhamentos[i].data,
+            acompanhamentos[i].dificuldades,
+            acompanhamentos[i].estrategia,
+            acompanhamentos[i].observacao
+        );
+    }
+
+    fclose(arquivo);
+
+    printf("\nAcompanhamentos salvos com sucesso!\n");
+}
+
+int carregarAcompanhamentos(Acompanhamento acompanhamentos[], int limite){
+    FILE *arquivo = fopen("acompanhamentos.txt", "r");
+
+    if (arquivo == NULL) {
+        return 0;
+    }
+
+    int quantidadeAcompanhamentos = 0;
+
+    while (quantidadeAcompanhamentos < limite &&
+        fscanf(arquivo, "%d|%11[^|]|%199[^|]|%199[^|]|%299[^\n]\n",
+            &acompanhamentos[quantidadeAcompanhamentos].idAluno,
+            acompanhamentos[quantidadeAcompanhamentos].data,
+            acompanhamentos[quantidadeAcompanhamentos].dificuldades,
+            acompanhamentos[quantidadeAcompanhamentos].estrategia,
+            acompanhamentos[quantidadeAcompanhamentos].observacao
+        ) == 5) {
+
+        quantidadeAcompanhamentos++;
+    }
+
+    fclose(arquivo);
+
+    return quantidadeAcompanhamentos;
 }

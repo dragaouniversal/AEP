@@ -268,3 +268,60 @@ int menuGerenciamento(void) {
 
     return opcao;
 }
+
+void salvarAlunos(Aluno alunos[], int quantidadeAluno) {
+
+    FILE *arquivo = fopen("alunos.txt", "w"); // O ponteiro indica diretamente ao arquivo que o "fopen" deve abrir.
+
+    if (arquivo == NULL) { // Verificação para ver se o sistema consegue abrir o arquivo
+        printf("\nErro ao abrir o arquivo de alunos.\n");
+        return;
+    }
+
+    for (int i = 0; i < quantidadeAluno; i++) {
+
+        fprintf(arquivo, "%d|%s|%s|%s|%s|%.2f|%d\n", //Parecido com printf, porem ao invés de mostrar na tela, ele escreve no arquivo.
+            alunos[i].id,
+            alunos[i].nome,
+            alunos[i].matricula,
+            alunos[i].turma,
+            alunos[i].serie,
+            alunos[i].frequencia,
+            alunos[i].ativo
+        );
+    }
+
+    fclose(arquivo);
+
+    printf("\nDados dos alunos salvos com sucesso!\n");
+}
+
+int carregarAlunos(Aluno alunos[], int limite) {
+
+    FILE *arquivo = fopen("alunos.txt", "r");
+
+    if (arquivo == NULL) {
+        return 0;
+    }
+
+    int quantidadeAluno = 0;
+
+    while (quantidadeAluno < limite &&
+        fscanf(arquivo, "%d|%99[^|]|%19[^|]|%29[^|]|%29[^|]|%f|%d", //Uma diferença importante: aqui nós usamos o %99[^|] ao invés de %s,
+            //Pois o %99[^|] consegue ler nomes e espaços, parando apenas quando ele encontrar um separador (separador é um "|").
+            &alunos[quantidadeAluno].id,
+            alunos[quantidadeAluno].nome,
+            alunos[quantidadeAluno].matricula,
+            alunos[quantidadeAluno].turma,
+            alunos[quantidadeAluno].serie,
+            &alunos[quantidadeAluno].frequencia,
+            &alunos[quantidadeAluno].ativo
+        ) == 7) {
+
+        quantidadeAluno++;
+    }
+
+    fclose(arquivo);
+
+    return quantidadeAluno;
+}

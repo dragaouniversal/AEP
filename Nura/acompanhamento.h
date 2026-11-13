@@ -16,4 +16,14 @@ void consultarAcompanhamentos(
     int quantidadeAcompanhamentos
 );
 
+void salvarAcompanhamentos(
+    Acompanhamento acompanhamentos[],
+    int quantidadeAcompanhamentos
+);
+
+int carregarAcompanhamentos(
+    Acompanhamento acompanhamentos[],
+    int limite
+);
+
 #endif

@@ -14,7 +14,7 @@ typedef struct {
 typedef struct{
     int idAluno;
     char data[11];
-    char dificuldade[200];
+    char dificuldades[200];
     char estrategia[200];
     char observacao[200];
 } Acompanhamento;

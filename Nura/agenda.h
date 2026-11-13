@@ -13,4 +13,8 @@ void pesquisarCompromissosPorDia(Agenda compromissos[], int quantidadeAgenda);
 
 void cancelarCompromisso(Agenda compromissos[], int quantidadeAgenda);
 
+void salvarCompromissos(Agenda compromissos[], int quantidadeAgenda);
+
+int carregarCompromissos(Agenda compromissos[], int limite);
+
 #endif

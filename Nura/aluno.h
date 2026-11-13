@@ -14,4 +14,8 @@ void edicaoAlunos(Aluno alunos[], int quantidadeAluno);
 
 void pesquisarAluno(Aluno alunos[], int quantidadeAlunos);
 
+void salvarAlunos(Aluno alunos[], int quantidadeAluno);
+
+int carregarAlunos(Aluno alunos[], int limite);
+
 #endif

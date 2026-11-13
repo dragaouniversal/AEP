@@ -1,0 +1,2 @@
+1|11/11/2026|12:00|Reuniao de emergencia|N/A|Lider|1
+2|16/11/2026|12:00|reuniao|Emergencia|Lider e colaboradores|1

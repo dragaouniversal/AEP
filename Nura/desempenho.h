@@ -23,4 +23,14 @@ void avaliarDesempenho(
     int quantidadeDesempenhos
 );
 
+void salvarDesempenhos(
+    Desempenho desempenhos[],
+    int quantidadeDesempenhos
+);
+
+int carregarDesempenhos(
+    Desempenho desempenhos[],
+    int limite
+);
+
 #endif
